@@ -73,9 +73,14 @@ export class PlayerService {
     if (!player) {
       throw new NotFoundException(); //Para não parar o server caso não tenha dados
     }
-    return this.dbPrisma.player.delete({
-      where: { id },
-    });
+    try {
+      await this.dbPrisma.player.delete({
+        where: { id },
+      });
+      return;
+    } catch (error) {
+      throw new InternalServerErrorException();
+    }
   }
 
   difAge = (x) => {
