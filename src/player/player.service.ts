@@ -78,16 +78,25 @@ export class PlayerService {
         where: { id },
       });
       return;
-    } catch (error) {
+    } catch (_err) {
       throw new InternalServerErrorException();
     }
   }
 
   difAge = (x) => {
+    // eslint-disable-next-line prefer-const
     let { years, months, days } = intervalToDuration({
       start: x,
       end: new Date(),
     });
+
+    if (years < 14 || years == undefined) {
+      throw new BadRequestException('The minimum age is 14 years');
+    }
+
+    if (years > 50) {
+      throw new BadRequestException('The maximum age is 50 years');
+    }
 
     let monthOrMonths = 'months';
     if (months == 1) {
