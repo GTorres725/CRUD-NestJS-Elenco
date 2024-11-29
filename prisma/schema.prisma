@@ -11,9 +11,11 @@ model Player {
   id            Int      @id @default(autoincrement())
   name          String
   age           String     
-  number        Int
+  number        Int      @unique
   position      String
   birthday      DateTime
   created_at    DateTime @default(now())
   update_at     DateTime @updatedAt
 }
+
+// Number não está unique por alterações/implementações futuras, mas estou tratando como unique no service *por enquanto*

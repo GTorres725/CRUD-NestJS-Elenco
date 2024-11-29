@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -35,7 +36,7 @@ export class PlayerService {
       where: { number },
     });
     if (validationNumber) {
-      throw new BadRequestException('This number alreadys used');
+      throw new ConflictException('This number alreadys used');
     }
 
     const { birthday } = createPlayer;
